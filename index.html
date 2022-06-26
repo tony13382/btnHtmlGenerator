@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .colorPicker {
+        height: 40px;
+        width: 40px;
+        padding: 0px;
+        margin: -4px;
+      }
+
+      .colorPickerMon {
+        height: 32px;
+        width: 32px;
+        overflow: hidden;
+      }
+
+      .btn span.glyphicon {
+        opacity: 0;
+      }
+      .btn.active span.glyphicon {
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      class="d-flex align-items-center justify-content-center"
+      style="background: #86473f; height: 15rem"
+    >
+      <h1 class="text-center" style="color: #ffffff">按鈕生成器</h1>
+    </div>
+    <div class="container" style="margin-top: -5rem">
+      <div class="row py-4">
+        <div class="col-12 col-lg-6 pb-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row pe-2">
+                    <div class="col-12">
+                      <h3><strong>內容設定</strong></h3>
+                      <div class="my-2">
+                        <p class="mb-0">按鈕文字</p>
+                        <div class="form-outline">
+                          <input
+                            type="text"
+                            id="title"
+                            class="form-control border"
+                            name="title"
+                          />
+                        </div>
+                      </div>
+                      <div class="my-2">
+                        <p class="mb-0">按鈕超連結</p>
+                        <div class="form-outline">
+                          <input
+                            type="text"
+                            id="url"
+                            class="form-control border"
+                            name="url"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 pb-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <h3><strong>顏色設定</strong></h3>
+                    <div class="col-12 my-1">
+                      <div class="form-check form-switch">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          role="switch"
+                          id="colorSetMode"
+                          onchange="changeColorSetMode()"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="flexSwitchCheckDefault"
+                          >自定義顏色</label
+                        >
+                      </div>
+                    </div>
+                <div class="col-12 col-md-6">
+                  <div class="row pe-2">
+                    <div class="col-12">
+                      <div class="my-2">
+                        <p class="mb-0">主題類別</p>
+                        <div class="form-outline">
+                          <select
+                            class="form-select"
+                            id="selectTheme"
+                            aria-label="elect theme"
+                            onchange="setTheme()"
+                          >
+                            <option selected value="antDesign">
+                              antDesign
+                            </option>
+                            <option value="material">Material</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="my-2">
+                        <p class="mb-0">主題色</p>
+                        <div class="form-outline">
+                          <select
+                            class="form-select"
+                            id="themeColorList"
+                            aria-label="elect theme"
+                            onchange="setColor()"
+                          >
+                            <option value="material">Material</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="d-none d-md-inline-flex"
+                  style="width: 1px !important; margin-left: -1px; padding: 0px"
+                >
+                  <div class="vr"></div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="row ps-3">
+                    <div class="col-12">
+                      <div class="d-flex align-items-center my-1">
+                        <div class="colorPickerMon rounded-circle">
+                          <input
+                            type="color"
+                            class="colorPicker d-inline-block"
+                            id="nbc"
+                            name="nbc"
+                            value="#1890ff"
+                            disabled
+                          />
+                        </div>
+                        <label for="nbc" class="mx-2">按鈕顏色</label>
+                      </div>
+                      <div class="d-flex align-items-center my-1">
+                        <div class="colorPickerMon rounded-circle border">
+                          <input
+                            type="color"
+                            class="colorPicker d-inline-block"
+                            id="ntc"
+                            name="ntc"
+                            value="#FFFFFF"
+                            disabled
+                          />
+                        </div>
+                        <label for="ntc" class="mx-2">按鈕文字顏色</label>
+                      </div>
+                      <div class="d-flex align-items-center my-1">
+                        <div class="colorPickerMon rounded-circle border">
+                          <input
+                            type="color"
+                            class="colorPicker d-inline-block"
+                            id="hbc"
+                            name="hbc"
+                            value="#096dd9"
+                            disabled
+                          />
+                        </div>
+                        <label for="hbc" class="mx-2">懸停按鈕顏色</label>
+                      </div>
+                      <div class="d-flex align-items-center my-1">
+                        <div class="colorPickerMon rounded-circle border">
+                          <input
+                            type="color"
+                            class="colorPicker d-inline-block"
+                            id="htc"
+                            name="htc"
+                            value="#FFFFFF"
+                            disabled
+                          />
+                        </div>
+                        <label for="htc" class="mx-2">懸停按鈕文字顏色</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 d-grid pb-4">
+            <button class="btn btn-primary"  type="button" onclick="geneUrl()">生成連結</button>
+        </div>
+        <div class="col-12 py-4">
+          <h3><strong>連結生成結果</strong></h3>
+          <div class="row">
+            <div class="input-group mb-3">
+              <input
+                class="form-control"
+                id="result"
+                type="text"
+                placeholder="輸入完整資訊後生成連結"
+                aria-label="disabled input example"
+                disabled
+              />
+              <button
+                class="btn btn-outline-primary"
+                type="button"
+                id="button-addon2"
+                data-mdb-ripple-color="dark"
+                onclick="copyToClipBoard()"
+              >
+                複製到剪貼簿
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var colorData = {
+        antDesign: {
+          red: {
+            normalBg: "f5222d",
+            normalText: "FFFFFF",
+            hoverBg: "cf1322",
+            hoverText: "FFFFFF",
+          },
+          volcano: {
+            normalBg: "fa541c",
+            normalText: "FFFFFF",
+            hoverBg: "d4380d",
+            hoverText: "FFFFFF",
+          },
+          orange: {
+            normalBg: "fa8c16",
+            normalText: "FFFFFF",
+            hoverBg: "d46b08",
+            hoverText: "FFFFFF",
+          },
+          gold: {
+            normalBg: "faad14",
+            normalText: "FFFFFF",
+            hoverBg: "d48806",
+            hoverText: "FFFFFF",
+          },
+          yellow: {
+            normalBg: "fadb14",
+            normalText: "000000",
+            hoverBg: "d4b106",
+            hoverText: "FFFFFF",
+          },
+          lime: {
+            normalBg: "a0d911",
+            normalText: "FFFFFF",
+            hoverBg: "7cb305",
+            hoverText: "FFFFFF",
+          },
+          green: {
+            normalBg: "52c41a",
+            normalText: "FFFFFF",
+            hoverBg: "389e0d",
+            hoverText: "FFFFFF",
+          },
+          cyan: {
+            normalBg: "13c2c2",
+            normalText: "FFFFFF",
+            hoverBg: "08979c",
+            hoverText: "FFFFFF",
+          },
+          blue: {
+            normalBg: "1890ff",
+            normalText: "FFFFFF",
+            hoverBg: "096dd9",
+            hoverText: "FFFFFF",
+          },
+          geekblue: {
+            normalBg: "2f54eb",
+            normalText: "FFFFFF",
+            hoverBg: "1d39c4",
+            hoverText: "FFFFFF",
+          },
+          purple: {
+            normalBg: "722ed1",
+            normalText: "FFFFFF",
+            hoverBg: "531dab",
+            hoverText: "FFFFFF",
+          },
+          magenta: {
+            normalBg: "eb2f96",
+            normalText: "FFFFFF",
+            hoverBg: "c41d7f",
+            hoverText: "FFFFFF",
+          },
+        },
+        material: {
+          red: {
+            normalBg: "e53935",
+            normalText: "FFFFFF",
+            hoverBg: "d32f2f",
+            hoverText: "000000",
+          },
+          pink: {
+            normalBg: "d81b60",
+            normalText: "FFFFFF",
+            hoverBg: "c2185b",
+            hoverText: "FFFFFF",
+          },
+          purple: {
+            normalBg: "8e24aa",
+            normalText: "FFFFFF",
+            hoverBg: "7b1fa2",
+            hoverText: "FFFFFF",
+          },
+          deepPurple: {
+            normalBg: "5e35b1",
+            normalText: "FFFFFF",
+            hoverBg: "512da8",
+            hoverText: "FFFFFF",
+          },
+          indigo: {
+            normalBg: "3949ab",
+            normalText: "FFFFFF",
+            hoverBg: "303f9f",
+            hoverText: "FFFFFF",
+          },
+          blue: {
+            normalBg: "1e88e5",
+            normalText: "000000",
+            hoverBg: "1976d2",
+            hoverText: "FFFFFF",
+          },
+          lightBlue: {
+            normalBg: "039be5",
+            normalText: "000000",
+            hoverBg: "0288d1",
+            hoverText: "000000",
+          },
+          cyan: {
+            normalBg: "00acc1",
+            normalText: "000000",
+            hoverBg: "0097a7",
+            hoverText: "000000",
+          },
+          teal: {
+            normalBg: "00897b",
+            normalText: "000000",
+            hoverBg: "00796b",
+            hoverText: "FFFFFF",
+          },
+          green: {
+            normalBg: "43a047",
+            normalText: "000000",
+            hoverBg: "388e3c",
+            hoverText: "000000"
+          },
+          lightGreen: {
+            normalBg: "7cb342",
+            normalText: "000000",
+            hoverBg: "689f38",
+            hoverText: "000000",
+          },
+          lime: {
+            normalBg: "c0ca33",
+            normalText: "000000",
+            hoverBg: "afb42b",
+            hoverText: "000000",
+          },
+          yellow: {
+            normalBg: "fdd835",
+            normalText: "000000",
+            hoverBg: "fbc02d",
+            hoverText: "000000",
+          },
+          amber: {
+            normalBg: "ffb300",
+            normalText: "000000",
+            hoverBg: "ffa000",
+            hoverText: "000000",
+          },
+          orange: {
+            normalBg: "fb8c00",
+            normalText: "000000",
+            hoverBg: "f57c00",
+            hoverText: "000000",
+          },
+          deepOrange: {
+            normalBg: "f4511e",
+            normalText: "000000",
+            hoverBg: "e64a19",
+            hoverText: "000000",
+          },
+          brown: {
+            normalBg: "6d4c41",
+            normalText: "FFFFFF",
+            hoverBg: "5d4037",
+            hoverText: "FFFFFF",
+          },
+          grey: {
+            normalBg: "757575",
+            normalText: "FFFFFF",
+            hoverBg: "616161",
+            hoverText: "FFFFFF",
+          },
+          blueGrey: {
+            normalBg: "607d8b",
+            normalText: "000000",
+            hoverBg: "546e7a",
+            hoverText: "FFFFFF",
+          },
+        },
+      };
+      console.log(colorData);
+      console.log(Object.entries(colorData['antDesign'])) ;
+    </script>
+    <script>
+        var theme = 'antDesign'
+        function setTheme() {
+            theme = document.getElementById('selectTheme').value;
+            let themeColorListElem = document.getElementById("themeColorList");
+            let htmlList = ""
+            
+            colorList = Object.entries(colorData[theme]) ;
+            for(let i = 0; i < colorList.length ; i++){
+                let colorName = colorList[i][0] ;
+                if (i==0) {
+                    htmlList += '<option value="' + colorName + '" selected >' + colorName + '</option>'
+                }
+                else{
+                    htmlList += '<option value="' + colorName + '">' + colorName + '</option>'
+                }
+            }
+            themeColorListElem.innerHTML = htmlList ;
+        }
+        setTheme()
+        var color = "blue";
+        function setColor() {
+            let pickcolor = document.getElementById("themeColorList").value;
+            let colorSet = colorData[theme][pickcolor]
+            document.getElementById("nbc").value = '#' + colorSet['normalBg'];
+            document.getElementById("ntc").value = '#' + colorSet['normalText'];
+            document.getElementById("hbc").value = '#' + colorSet['hoverBg'];
+            document.getElementById("htc").value = '#' + colorSet['hoverText'];
+        }
+        setColor()
+        function changeColorSetMode() {
+            let setElem = document.getElementById('colorSetMode')
+            document.getElementById('selectTheme').disabled = setElem.checked;
+            document.getElementById('themeColorList').disabled = setElem.checked;
+            document.getElementById('nbc').disabled = !setElem.checked;
+            document.getElementById('ntc').disabled = !setElem.checked;
+            document.getElementById('hbc').disabled = !setElem.checked;
+            document.getElementById('htc').disabled = !setElem.checked;
+        }
+        function geneUrl() {
+            let url = "https://tony13382.github.io/btnHtmlGenerator/show.html";
+            url = url + '?title=' + document.getElementById('title').value ;
+            url = url + '&hrefUrl=' + document.getElementById('url').value ;
+            url = url + '&nbc=' + document.getElementById('nbc').value.substr(1, 6) ;
+            url = url + '&ntc=' + document.getElementById('ntc').value.substr(1, 6) ;
+            url = url + '&hbc=' + document.getElementById('hbc').value.substr(1, 6) ;
+            url = url + '&htc=' + document.getElementById('htc').value.substr(1, 6) ;
+            console.log(url) ;
+            document.getElementById('result').value = url
+        }
+        function copyToClipBoard() {
+            var content = document.getElementById('result').value;
+            navigator.clipboard.writeText(content)
+                .then(() => {
+                console.log("Text copied to clipboard...")
+            })
+                .catch(err => {
+                console.log('Something went wrong', err);
+            })
+        }
+    </script>
+  </body>
+</html>

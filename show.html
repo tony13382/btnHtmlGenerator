@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <style>
+            .btn {
+                display: flex;
+                padding : 1.5rem 1.5rem 1.6rem 1.5rem ;
+                margin : 0.25rem;
+                border-radius : 0.5rem;
+                text-decoration: none ;
+                text-align : center ;
+                justify-content: center;
+                color : #000000 ;
+                background-color : #EEEEEE; 
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <a href="" class="btn" id="btn" target="_blank">
+                Welcome to use URL Button 
+            </a>
+        </div>
+    </body>
+    <script>
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        try{
+            var title = getParameterByName('title');
+            var hrefUrl = getParameterByName('hrefUrl');   
+        }
+        catch{
+            console.log("Input Error") 
+        }
+
+        let btnElem =  document.getElementById("btn");
+
+        try {
+            if(title == null || hrefUrl == null) {
+                console.log("Miss Value Error");
+                btnElem.href = "https://www.google.com";
+            }
+            else {
+                btnElem.textContent= title;
+                btnElem.href = hrefUrl;
+            }
+        }
+        catch{
+            console.log("Set Value Error")
+        }
+
+        let dataIsRight = false;
+        try {
+            var normalBg = getParameterByName('nbc');   
+            var normalText = getParameterByName('ntc');   
+            var hoverBg = getParameterByName('hbc');   
+            var hoverText = getParameterByName('htc');   
+            if(normalBg == null || normalText == null || hoverBg == null || hoverText == null) {
+                dataIsRight = false;
+            }
+            else {
+                dataIsRight = true;
+            }
+        }
+        catch {
+            dataIsRight = false;
+        }
+        
+        if(!dataIsRight) {
+            var normalBg = "#1890ff" ;
+            var normalText = "#FFFFFF" ;
+            var hoverBg = "#096dd9" ;
+            var hoverText = "#FFFFFF" ;
+        }
+
+        try {
+            var css = '.btn-color{ background-color: ' + normalBg + ' ;} ';
+            css = css + '.btn-color{ color: ' + normalText + ' ;} ';
+            css = css + '.btn-color:hover{ background-color: ' + hoverBg + ' ;} ';
+            css = css + '.btn-color:hover{ color: ' + hoverText + ' ;} ';
+            var style = document.createElement('style');
+            if (style.styleSheet) {
+                style.styleSheet.cssText = css;
+            } else {
+                style.appendChild(document.createTextNode(css));
+            }
+            document.getElementsByTagName('head')[0].appendChild(style);
+            btnElem.classList.add("btn-color");
+        }
+        catch {
+            console.log("Missing Color Value Error");
+        }
+    </script>
+</html>
