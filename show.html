@@ -73,17 +73,17 @@
         }
         
         if(!dataIsRight) {
-            var normalBg = "#1890ff" ;
-            var normalText = "#FFFFFF" ;
-            var hoverBg = "#096dd9" ;
-            var hoverText = "#FFFFFF" ;
+            var normalBg = "1890ff" ;
+            var normalText = "FFFFFF" ;
+            var hoverBg = "096dd9" ;
+            var hoverText = "FFFFFF" ;
         }
 
         try {
-            var css = '.btn-color{ background-color: ' + normalBg + ' ;} ';
-            css = css + '.btn-color{ color: ' + normalText + ' ;} ';
-            css = css + '.btn-color:hover{ background-color: ' + hoverBg + ' ;} ';
-            css = css + '.btn-color:hover{ color: ' + hoverText + ' ;} ';
+            var css = '.btn-color{ background-color: #' + normalBg + ' ;} ';
+            css = css + '.btn-color{ color: #' + normalText + ' ;} ';
+            css = css + '.btn-color:hover{ background-color: #' + hoverBg + ' ;} ';
+            css = css + '.btn-color:hover{ color: #' + hoverText + ' ;} ';
             var style = document.createElement('style');
             if (style.styleSheet) {
                 style.styleSheet.cssText = css;
